@@ -124,7 +124,7 @@ function renderDesk() {
           </section>
         </div>
 
-        <section class="section-block"><div class="section-title"><h3>Sales Pitch</h3></div><p class="sales-pitch">${esc(salesPitch(l))}</p></section>
+        <section class="section-block sales-pitch-block"><div class="section-title"><h3>Sales Pitch</h3></div><p class="sales-pitch">${esc(salesPitch(l))}</p></section>
         <section class="section-block"><div class="section-title"><h3>Latest Activity</h3></div><div class="activity-list">${activities.length ? activities.map(a => `<div class="activity-row"><div class="when">${esc(a.when)}</div><div>${esc(a.what)}</div></div>`).join("") : '<div class="muted">No activity on file.</div>'}</div>${l.activity.length > 2 ? `<button class="linkish" data-act="activity-toggle">${state.activityExpanded ? "Show less" : `Show ${l.activity.length - 2} older`}</button>` : ""}</section>
       </div>
     </div>`;
