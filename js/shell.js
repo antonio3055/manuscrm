@@ -55,9 +55,9 @@
     if (page === "leads") return base === ".." ? "../index.html" : "index.html";
     return base === ".." ? `${page}.html` : `pages/${page}.html`;
   }
-  function navMarkup() {
+  function navMarkup(includeNotifications = true) {
     const current = body.dataset.page || "leads";
-    return PAGES.map(([page,label,icon]) => `
+    return PAGES.filter(([page]) => includeNotifications || page !== "notifications").map(([page,label,icon]) => `
       <button class="nav-btn ${current===page?'active':''}" type="button" data-shell-page="${page}" title="${label}">
         <span class="nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true">${icon}</svg></span>
         <span class="nav-label">${label}</span>
@@ -74,10 +74,12 @@
       <header class="topbar-shell">
         <div class="topbar-traffic" aria-hidden="true"><i class="r"></i><i class="y"></i><i class="g"></i></div>
         <div class="topbar-brand">Forge<span>CRM</span></div>
-        <nav class="topbar-nav" aria-label="Primary">${navMarkup()}</nav>
-        <button class="topbar-search" type="button" data-shell-act="topbar-search" aria-label="Search CRM"><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m20 20-3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Search CRM</span><kbd>/</kbd></button>
-        <button class="topbar-device" type="button" data-shell-act="devices" aria-label="Calling device"><span class="topbar-device-dot"></span><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5a11 11 0 0 1 16 0M7 12.5a7 7 0 0 1 10 0M10 15.5a3 3 0 0 1 4 0" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="19" r="1" fill="currentColor"/></svg></button>
-        <button class="topbar-avatar" type="button" data-shell-act="account" aria-expanded="false">CB</button>
+        <nav class="topbar-nav" aria-label="Primary">${navMarkup(false)}</nav>
+        <div class="topbar-utilities" aria-label="Workspace utilities">
+          <button class="topbar-device" type="button" data-shell-act="devices" aria-label="Calling device"><span class="topbar-device-dot"></span>${connectionIcon()}</button>
+          <button class="topbar-notifications" type="button" data-shell-page="notifications" aria-label="Notifications" title="Notifications"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></button>
+          <button class="topbar-avatar" type="button" data-shell-act="account" aria-expanded="false">CB</button>
+        </div>
       </header>
       <aside class="sidebar-shell">
       <div class="sidebar-head">
@@ -178,7 +180,6 @@
     if (actBtn) {
       const act = actBtn.dataset.shellAct;
       if (act === "sidebar-toggle") { toggleSidebar(); return; }
-      if (act === "topbar-search") { document.querySelector(".rail-search-btn")?.click(); return; }
       if (act === "account") { toggleAccount(); return; }
       if (act === "settings") { openSettings(); return; }
       if (act === "settings-close") { closeSettings(); return; }
