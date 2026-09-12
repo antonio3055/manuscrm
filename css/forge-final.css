@@ -58,3 +58,6 @@ html[data-theme="neutral"]{--bg:#F4F5F7;--accent-soft:#EFEDE8}.theme-neutral-onl
 
 /* Keep Approval flush right on the same full-width company-title row. */
 .rec-title-line{width:100%!important}.rec-title-copy{width:100%!important}.rec-company-line{width:100%!important}
+
+/* Final header correction: full-width title row with compact far-right approval. */
+.rec-head{display:block!important}.rec-main{width:100%!important}.rec-title-line{width:100%!important}.rec-title-copy{width:100%!important}.rec-company-line{width:100%!important}.rec-company-line .rec-summary{flex-basis:88px!important;min-width:88px!important;width:88px!important}.rec-company-line .summary-item.summary-accent .k{font-size:8px!important;letter-spacing:.07em!important}.rec-company-line .summary-item.summary-accent .v{font-size:12px!important;font-weight:600!important}
