@@ -64,3 +64,6 @@ html[data-theme="neutral"]{--bg:#F4F5F7;--accent-soft:#EFEDE8}.theme-neutral-onl
 
 /* Panel separation: quiet vertical rules between Leads, Record, and Communications. */
 .rail{border-right:1px solid #E6E8EB!important}.desk{border-left:1px solid #E6E8EB!important;border-right:1px solid #E6E8EB!important}.dock{border-left:1px solid #E6E8EB!important}.handle{background:#FFFFFF!important}.handle::after{background:#D9DEE3!important;width:1px!important}.handle:hover,.handle.drag{background:#F7F8FA!important}
+
+/* Live alignment correction: explicit right alignment and visible Company row rules. */
+.rec-company-line .rec-summary{margin-left:auto!important;text-align:right!important}.rec-company-line .summary-item.summary-accent{text-align:right!important}.company-fields .company-row{border-bottom:1px solid #E6E8EB!important}.company-fields .company-row:last-child{border-bottom:1px solid #E6E8EB!important}.company-card{border-left:1px solid #E6E8EB!important}
