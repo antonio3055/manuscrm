@@ -34,3 +34,7 @@ html[data-theme="neutral"]{--bg:#F4F5F7;--accent-soft:#EFEDE8}.theme-neutral-onl
 .paired-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;align-items:stretch!important}.paired-row>.paired-section{height:100%!important;min-width:0}
 @media (max-width:900px){.paired-row{grid-template-columns:minmax(0,1fr)!important}.rec-summary{min-width:0!important;width:100%!important}.rec-head{grid-template-columns:1fr!important}.comm-side{min-width:92px!important}.comm-main small{max-width:48vw}}
 @media (max-width:640px){.comm-row{grid-template-columns:26px minmax(0,1fr) auto!important;gap:7px!important;padding:9px 8px!important}.comm-side{min-width:78px!important}.comm-side time{font-size:10px!important}.comm-side em{font-size:9px!important}.section-doc{width:22px!important;height:22px!important}}
+
+/* Main 5 reference correction: lighter canvas and exact Sales Pitch treatment. */
+:root{--bg:#F4F5F7;--accent-soft:#F7F6F3}
+.sales-pitch-block{background:#E8EEF4!important;border-top:0!important;border-left:3px solid #1A365D!important;padding:14px 16px!important;margin:8px 0 4px!important}.sales-pitch-block .section-title{margin-bottom:8px!important}.sales-pitch-block .section-title h3{color:#1A365D!important;margin:0!important}.sales-pitch-block .sales-pitch{font-size:14px!important;line-height:1.55!important;color:var(--fg)!important;max-width:1050px!important;margin:0!important}
