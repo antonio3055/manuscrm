@@ -8,7 +8,7 @@
     ["notifications", "Notifications", '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path>']
   ];
   const KEY = "forge.v2.settings";
-  const DEFAULTS = { screenScale:"auto", fontSize:"auto", sidebar:"collapsed", leadDensity:"standard", motion:"normal" };
+  const DEFAULTS = { screenScale:"auto", fontSize:"auto", navMode:"topbar", sidebar:"collapsed", leadDensity:"standard", motion:"normal" };
   let accountOpen = false;
   let toastTimer = null;
   const body = document.body;
@@ -42,7 +42,9 @@
     html.dataset.motion = settings.motion === "reduced" ? "reduced" : "normal";
     html.style.setProperty("--ui-font-size", size + "px");
     html.style.setProperty("--font-factor", String(size / 16));
-    body.dataset.sidebar = settings.sidebar === "expanded" ? "expanded" : "collapsed";
+    const navMode = ["topbar","sidebar-icons","sidebar-wide"].includes(settings.navMode) ? settings.navMode : "topbar";
+    html.dataset.navMode = navMode;
+    body.dataset.sidebar = navMode === "sidebar-wide" ? "expanded" : "collapsed";
     saveSettings();
     if (notify) window.dispatchEvent(new CustomEvent("forge:layout-changed"));
   }
@@ -64,8 +66,17 @@
   function mountShell() {
     const mount = document.getElementById("sidebarMount");
     if (!mount) return;
-    mount.className = "sidebar";
+    mount.className = "app-nav";
     mount.innerHTML = `
+      <header class="topbar-shell">
+        <div class="topbar-traffic" aria-hidden="true"><i class="r"></i><i class="y"></i><i class="g"></i></div>
+        <div class="topbar-brand">Forge<span>CRM</span></div>
+        <nav class="topbar-nav" aria-label="Primary">${navMarkup()}</nav>
+        <button class="topbar-search" type="button" data-shell-act="topbar-search" aria-label="Search CRM"><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m20 20-3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Search CRM</span><kbd>/</kbd></button>
+        <button class="topbar-device" type="button" data-shell-act="devices" aria-label="Calling device"><span class="topbar-device-dot"></span><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5a11 11 0 0 1 16 0M7 12.5a7 7 0 0 1 10 0M10 15.5a3 3 0 0 1 4 0" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="19" r="1" fill="currentColor"/></svg></button>
+        <button class="topbar-avatar" type="button" data-shell-act="account" aria-expanded="false">CB</button>
+      </header>
+      <aside class="sidebar-shell">
       <div class="sidebar-head">
         <button class="sidebar-collapsed-toggle" type="button" data-shell-act="sidebar-toggle" aria-label="Expand sidebar" title="Expand sidebar"></button>
         <div class="forge-dots" aria-label="Forge"><i class="r"></i><i class="y"></i><i class="g"></i></div>
@@ -81,7 +92,7 @@
           <span class="user-avatar">CB</span>
           <span class="user-copy"><strong>Cole Brennan</strong><span>User</span></span>
         </button>
-      </div>`;
+      </div></aside>`;
     const menu = document.createElement("div");
     menu.className = "account-menu"; menu.id = "accountMenu";
     menu.innerHTML = `<button type="button" data-shell-act="settings">Settings</button><button type="button" data-shell-act="logout">Log Out</button>`;
@@ -129,7 +140,7 @@
       <div class="settings-head"><h2 id="settingsTitle">Settings</h2><button class="shell-close" type="button" data-shell-act="settings-close" aria-label="Close">×</button></div>
       <div class="setting-row"><div class="setting-copy"><strong>Screen Scale</strong><span>Auto picks a layout for the current screen. You can override it anytime.</span></div><select data-setting="screenScale">${settingOptions([["auto","Auto (Recommended)"],["standard","Standard"],["wide","Wide"],["ultra","Ultra-Wide"]], settings.screenScale)}</select></div>
       <div class="setting-row"><div class="setting-copy"><strong>Font / Icon Size</strong><span>Auto keeps 16px standard and gently increases ultra-wide screens. Manual sizes stay 15px–19px.</span></div><select data-setting="fontSize">${settingOptions(fontValues, settings.fontSize)}</select></div>
-      <div class="setting-row"><div class="setting-copy"><strong>Sidebar</strong><span>Choose whether the page starts with icons only or the wider text sidebar.</span></div><select data-setting="sidebar">${settingOptions([["collapsed","Icons only"],["expanded","Expanded with text"]], settings.sidebar)}</select></div>
+      <div class="setting-row"><div class="setting-copy"><strong>Navigation style</strong><span>Switch between the Main 5 top bar, compact sidebar icons, or a wide text sidebar.</span></div><select data-setting="navMode">${settingOptions([["topbar","Top bar (Recommended)"],["sidebar-icons","Sidebar icons"],["sidebar-wide","Wide sidebar with tabs"]], settings.navMode)}</select></div>
       <div class="setting-row"><div class="setting-copy"><strong>Lead Row Spacing</strong><span>Compact shows more leads without changing lead data.</span></div><select data-setting="leadDensity">${settingOptions([["standard","Standard"],["compact","Compact"]], settings.leadDensity)}</select></div>
       <div class="setting-row"><div class="setting-copy"><strong>Motion</strong><span>Reduced motion removes non-essential animations and transitions.</span></div><select data-setting="motion">${settingOptions([["normal","Normal"],["reduced","Reduced"]], settings.motion)}</select></div>
       ${document.getElementById("main") ? '<div class="settings-actions"><button class="shell-btn" type="button" data-shell-act="reset-panels">Reset panel widths</button></div>' : ''}
@@ -161,6 +172,7 @@
     if (actBtn) {
       const act = actBtn.dataset.shellAct;
       if (act === "sidebar-toggle") { toggleSidebar(); return; }
+      if (act === "topbar-search") { document.querySelector(".rail-search-btn")?.click(); return; }
       if (act === "account") { toggleAccount(); return; }
       if (act === "settings") { openSettings(); return; }
       if (act === "settings-close") { closeSettings(); return; }
