@@ -67,3 +67,8 @@ html[data-theme="neutral"]{--bg:#F4F5F7;--accent-soft:#EFEDE8}.theme-neutral-onl
 
 /* Live alignment correction: explicit right alignment and visible Company row rules. */
 .rec-company-line .rec-summary{margin-left:auto!important;text-align:right!important}.rec-company-line .summary-item.summary-accent{text-align:right!important}.company-fields .company-row{border-bottom:1px solid #E6E8EB!important}.company-fields .company-row:last-child{border-bottom:1px solid #E6E8EB!important}.company-card{border-left:1px solid #E6E8EB!important}
+
+/* Final panel spacing: 2px open gaps, no vertical rules. */
+.main{grid-template-columns:var(--rail-w) 2px minmax(900px,1fr) 2px var(--dock-w)!important}.rail,.desk,.dock{border-left:0!important;border-right:0!important}.handle{background:#FFFFFF!important}.handle::after{display:none!important}.handle:hover,.handle.drag{background:#F7F8FA!important}
+/* Company fields use the same quiet row separators as the other sections. */
+.company-fields .company-field{border-bottom:1px solid #E6E8EB!important;padding:6px 0!important}.company-fields .company-field:last-child{border-bottom:1px solid #E6E8EB!important}
