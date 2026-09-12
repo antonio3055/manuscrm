@@ -72,3 +72,6 @@ html[data-theme="neutral"]{--bg:#F4F5F7;--accent-soft:#EFEDE8}.theme-neutral-onl
 .main{grid-template-columns:var(--rail-w) 2px minmax(900px,1fr) 2px var(--dock-w)!important}.rail,.desk,.dock{border-left:0!important;border-right:0!important}.handle{background:#FFFFFF!important}.handle::after{display:none!important}.handle:hover,.handle.drag{background:#F7F8FA!important}
 /* Company fields use the same quiet row separators as the other sections. */
 .company-fields .company-field{border-bottom:1px solid #E6E8EB!important;padding:6px 0!important}.company-fields .company-field:last-child{border-bottom:1px solid #E6E8EB!important}
+
+/* Responsive panel balance: keep Communications visible instead of forcing an oversized center panel. */
+.main{min-width:0!important;grid-template-columns:minmax(250px,var(--rail-w)) 2px minmax(0,1fr) 2px minmax(300px,var(--dock-w))!important}.desk{min-width:0!important}.dock,.rail{min-width:0!important}
