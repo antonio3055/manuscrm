@@ -151,6 +151,8 @@ document.addEventListener("keydown", (e) => {
   }
   if (!editing && state.modal == null && e.key === "Backspace" && (state.dial.status === "idle" || state.dial.status === "ended")) { e.preventDefault(); state.dial.number=(state.dial.number||"").slice(0,-1); renderDock(); return; }
   if (!editing && state.modal == null && e.key === "Enter" && (state.dial.status === "idle" || state.dial.status === "ended") && state.dial.number) { e.preventDefault(); document.querySelector(".dialer [data-act='call']")?.click(); return; }
+  if (!editing && state.modal == null && e.key.toLowerCase() === "k") { e.preventDefault(); state.keypadOpen = !state.keypadOpen; placePad(); return; }
+  if (!editing && state.modal == null && e.key.toLowerCase() === "c" && (state.dial.status === "idle" || state.dial.status === "ended")) { e.preventDefault(); const n = state.dial.number || lead().mobiles?.[0]?.n || ""; if (n) { state.dial.number = n; document.querySelector(".dialer [data-act='call']")?.click(); } return; }
   if (e.target.id === "smsBox" && e.key === "Enter" && !e.shiftKey) { e.preventDefault(); document.querySelector("[data-act='send-sms']")?.click(); return; }
   if (e.key === "/" && document.body.dataset.page === "leads" && !/INPUT|TEXTAREA/.test(document.activeElement.tagName) && document.activeElement.isContentEditable !== true) { e.preventDefault(); state.filterOpen = false; state.searchOpen = true; renderLeadFilterMenu(); renderSearch(); setTimeout(()=>$("q")?.focus(), 0); }
   if (e.key === "Escape") {
@@ -197,7 +199,7 @@ document.documentElement.addEventListener("mouseleave", () => clearScrollEdges()
   });
 })();
 window.addEventListener("forge:reset-panels", () => { resetPanelWidths(true); placePad(); });
-window.addEventListener("forge:layout-changed", () => { if (storeGet(LS.custom) === "1") setPanelWidths(panelCssWidth($("rail")), panelCssWidth($("dock")), false); else resetPanelWidths(false); placePad(); });
+window.addEventListener("forge:layout-changed", () => { if (storeGet(LS.custom) === "1") setPanelWidths(panelCssWidth($("rail")), panelCssWidth($("dock")), false); else resetPanelWidths(false); placePad(); if (typeof renderAll === "function") renderAll(); });
 window.addEventListener("resize", () => { if (storeGet(LS.custom) === "1") setPanelWidths(panelCssWidth($("rail")), panelCssWidth($("dock")), false); else resetPanelWidths(false); placePad(); });
 
 applyWidths();
