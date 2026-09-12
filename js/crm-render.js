@@ -63,7 +63,6 @@ function renderDesk() {
     l.dob ? companyFieldBlock("DOB", esc(l.dob)) : "",
     l.started ? companyFieldBlock("BSD", esc(bsdValue(l))) : "",
     l.entity ? companyFieldBlock("Entity", esc(l.entity)) : "",
-    l.employees != null ? companyFieldBlock("Employees", esc(l.employees)) : "",
     l.address ? companyFieldBlock("Address", esc(l.address), true) : ""
   ].filter(Boolean).join("");
   const statementRows = completedStatements.map(s => {
@@ -88,8 +87,7 @@ function renderDesk() {
             <div class="rec-title-copy"><div class="rec-eyebrow"><span>Lead record</span></div><h1>${esc(l.company)}</h1><div class="rec-who">${esc(displayName(l.contact))}</div></div>
           </div>
         </div>
-        <div class="rec-summary ${document.documentElement.dataset.showFinancial === "hide" ? "is-hidden" : ""}" aria-label="Lead summary">
-          <div class="summary-item"><div class="k">Revenue</div><div class="v">${money(l.avg)}</div></div>
+        <div class="rec-summary ${document.documentElement.dataset.showFinancial === "hide" ? "is-hidden" : ""}" aria-label="Lead approval">
           <div class="summary-item summary-accent"><div class="k">Approval</div><div class="v">${money(l.offer)}</div></div>
         </div>
       </div>
