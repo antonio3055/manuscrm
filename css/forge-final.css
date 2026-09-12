@@ -46,3 +46,6 @@ html[data-theme="neutral"]{--bg:#F4F5F7;--accent-soft:#EFEDE8}.theme-neutral-onl
 
 /* File 5 communications correction: white panel and rows, soft hover only. */
 .dock,.dock-body,.comm-list,.comm-row,.comm-row.static,.composer-shell{background:#FFFFFF!important}.dock-tabs{background:#F4F5F7!important;border-bottom-color:#E6E8EB!important}.comm-row{border-bottom-color:#E6E8EB!important}.comm-row:hover,.comm-row.static:hover{background:#F7F8FA!important}.comm-detail-head,.mail-tools{background:#FFFFFF!important;border-color:#E6E8EB!important}.comm-detail-card{background:#F7F8FA!important}
+
+/* Final surface alignment: all visible workspace panels and summary cards share white. */
+.main,.rail,.dock,.desk,.workspace,.crm-page,.middle-body,.rail-head,.dock-tabs,.rec-head,.lead-list,.dock-body,.comm-list,.comm-row,.comm-row.static,.composer-shell,.comm-detail-head,.mail-tools,.paired-section,.summary-item,.summary-accent{background:#FFFFFF!important}.rec-head,.rail-head,.dock-tabs{border-color:#E6E8EB!important}.summary-item,.summary-accent{border:1px solid #E6E8EB!important;border-radius:7px!important}.summary-accent .v{color:#0F766E!important}.lead-row:hover,.comm-row:hover,.comm-row.static:hover{background:#F7F8FA!important}.lead-row.on{background:#F7F6F3!important}.handle::after{background:#E6E8EB!important}
