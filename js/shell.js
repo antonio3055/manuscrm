@@ -8,7 +8,7 @@
     ["notifications", "Notifications", '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path>']
   ];
   const KEY = "forge.v2.settings";
-  const DEFAULTS = { screenScale:"auto", fontSize:"auto", navMode:"topbar", sidebar:"collapsed", leadDensity:"standard", motion:"normal" };
+  const DEFAULTS = { screenScale:"auto", fontSize:"auto", navMode:"topbar", sidebar:"collapsed", leadDensity:"standard", motion:"normal", theme:"warm", showFinancial:"show", defaultCommsTab:"all" };
   let accountOpen = false;
   let toastTimer = null;
   const body = document.body;
@@ -40,6 +40,9 @@
     html.dataset.screenScale = ["standard","wide","ultra"].includes(scale) ? scale : "standard";
     html.dataset.leadDensity = settings.leadDensity === "compact" ? "compact" : "standard";
     html.dataset.motion = settings.motion === "reduced" ? "reduced" : "normal";
+    html.dataset.theme = settings.theme === "neutral" ? "neutral" : "warm";
+    html.dataset.showFinancial = settings.showFinancial === "hide" ? "hide" : "show";
+    html.dataset.defaultComms = ["all","msg","calls","people","mail"].includes(settings.defaultCommsTab) ? settings.defaultCommsTab : "all";
     html.style.setProperty("--ui-font-size", size + "px");
     html.style.setProperty("--font-factor", String(size / 16));
     const navMode = ["topbar","sidebar-icons","sidebar-wide"].includes(settings.navMode) ? settings.navMode : "topbar";
@@ -141,7 +144,10 @@
       <div class="setting-row"><div class="setting-copy"><strong>Screen Scale</strong><span>Auto picks a layout for the current screen. You can override it anytime.</span></div><select data-setting="screenScale">${settingOptions([["auto","Auto (Recommended)"],["standard","Standard"],["wide","Wide"],["ultra","Ultra-Wide"]], settings.screenScale)}</select></div>
       <div class="setting-row"><div class="setting-copy"><strong>Font / Icon Size</strong><span>Auto keeps 16px standard and gently increases ultra-wide screens. Manual sizes stay 15px–19px.</span></div><select data-setting="fontSize">${settingOptions(fontValues, settings.fontSize)}</select></div>
       <div class="setting-row"><div class="setting-copy"><strong>Navigation style</strong><span>Switch between the Main 5 top bar, compact sidebar icons, or a wide text sidebar.</span></div><select data-setting="navMode">${settingOptions([["topbar","Top bar (Recommended)"],["sidebar-icons","Sidebar icons"],["sidebar-wide","Wide sidebar with tabs"]], settings.navMode)}</select></div>
-      <div class="setting-row"><div class="setting-copy"><strong>Lead Row Spacing</strong><span>Compact shows more leads without changing lead data.</span></div><select data-setting="leadDensity">${settingOptions([["standard","Standard"],["compact","Compact"]], settings.leadDensity)}</select></div>
+      <div class="setting-row"><div class="setting-copy"><strong>Panel Density</strong><span>Comfortable adds breathing room; compact keeps more activity visible.</span></div><select data-setting="leadDensity">${settingOptions([["standard","Comfortable"],["compact","Compact"]], settings.leadDensity)}</select></div>
+      <div class="setting-row"><div class="setting-copy"><strong>Financial Summary</strong><span>Show or hide the Revenue and Approval summary in the record header.</span></div><select data-setting="showFinancial">${settingOptions([["show","Show"],["hide","Hide"]], settings.showFinancial)}</select></div>
+      <div class="setting-row"><div class="setting-copy"><strong>Default Communications Tab</strong><span>Choose which activity view opens when the CRM loads.</span></div><select data-setting="defaultCommsTab">${settingOptions([["all","All"],["msg","Messages"],["calls","Call log"],["people","Contacts"],["mail","Email"]], settings.defaultCommsTab)}</select></div>
+      <div class="setting-row"><div class="setting-copy"><strong>Theme</strong><span>Warm keeps the Main 5 beige canvas; Neutral uses the cooler light-gray canvas.</span></div><select data-setting="theme">${settingOptions([["warm","Warm Main 5"],["neutral","Neutral light"]], settings.theme)}</select></div>
       <div class="setting-row"><div class="setting-copy"><strong>Motion</strong><span>Reduced motion removes non-essential animations and transitions.</span></div><select data-setting="motion">${settingOptions([["normal","Normal"],["reduced","Reduced"]], settings.motion)}</select></div>
       ${document.getElementById("main") ? '<div class="settings-actions"><button class="shell-btn" type="button" data-shell-act="reset-panels">Reset panel widths</button></div>' : ''}
     </div>`;

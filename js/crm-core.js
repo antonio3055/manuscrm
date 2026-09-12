@@ -19,7 +19,7 @@ const state = {
   filterOpen: false,
   query: "",
   searchOpen: false,
-  commsTab: "all",
+  commsTab: document.documentElement.dataset.defaultComms || "all",
   threadN: "",
   threadCh: "sms",
   messageThreadOpen: false,

@@ -88,7 +88,7 @@ function renderDesk() {
             <div class="rec-title-copy"><div class="rec-eyebrow"><span>Lead record</span></div><h1>${esc(l.company)}</h1><div class="rec-who">${esc(displayName(l.contact))}</div></div>
           </div>
         </div>
-        <div class="rec-summary" aria-label="Lead summary">
+        <div class="rec-summary ${document.documentElement.dataset.showFinancial === "hide" ? "is-hidden" : ""}" aria-label="Lead summary">
           <div class="summary-item"><div class="k">Revenue</div><div class="v">${money(l.avg)}</div></div>
           <div class="summary-item summary-accent"><div class="k">Approval</div><div class="v">${money(l.offer)}</div></div>
         </div>
