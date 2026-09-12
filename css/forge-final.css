@@ -55,3 +55,6 @@ html[data-theme="neutral"]{--bg:#F4F5F7;--accent-soft:#EFEDE8}.theme-neutral-onl
 
 /* Header refinement: company row with compact approval, divider below contact name. */
 .rec-head{border-bottom:0!important}.rec-title-copy{flex:1;min-width:0;padding-bottom:12px;border-bottom:.5px solid #E6E8EB}.rec-company-line{display:flex;align-items:center;justify-content:space-between;gap:18px;min-width:0}.rec-company-line h1{min-width:0}.rec-company-line .rec-summary{flex:0 0 100px;min-width:100px!important;width:100px!important;justify-self:auto!important}.rec-company-line .summary-item.summary-accent .k{font-size:9px!important}.rec-company-line .summary-item.summary-accent .v{font-size:13px!important;margin-top:1px!important}.rec-who{margin-top:3px!important}
+
+/* Keep Approval flush right on the same full-width company-title row. */
+.rec-title-line{width:100%!important}.rec-title-copy{width:100%!important}.rec-company-line{width:100%!important}
